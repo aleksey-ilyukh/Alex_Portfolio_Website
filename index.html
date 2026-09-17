@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Ilyukh — Data Analyst Portfolio</title>
+<meta name="description" content="Portfolio of Alex Ilyukh — data analysis, dashboards, statistical modeling, and decision-focused projects.">
+<meta property="og:title" content="Alex Ilyukh — Data Analyst Portfolio">
+<meta property="og:description" content="Data analysis, statistical modeling, dashboards, and decision-focused projects built with Python, SQL, and Power BI.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #14171c;
+    --surface: #1b1f26;
+    --surface-2: #21262f;
+    --border: #2c323c;
+    --text: #e9e6df;
+    --text-muted: #939aa6;
+    --text-dim: #666e7b;
+
+    --bronze: #b9764b;
+    --bronze-dim: #7d5539;
+    --silver: #abb4c0;
+    --silver-dim: #6d747e;
+    --gold: #d9a544;
+    --gold-dim: #8f6d2e;
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Source Serif 4', Georgia, serif;
+
+    --max-w: 1040px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .display{
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- Nav ---------- */
+  header.site-nav{
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(20, 23, 28, 0.88);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner{
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .nav-name{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 18px;
+    white-space: nowrap;
+  }
+  .nav-links{
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-display);
+    font-size: 15px;
+  }
+  .nav-links a{
+    text-decoration: none;
+    color: var(--text-muted);
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .nav-links a:hover{ color: var(--text); }
+  .nav-links a.stage-foundation.active{ color: var(--bronze); border-color: var(--bronze); }
+  .nav-links a.stage-experience.active{ color: var(--silver); border-color: var(--silver); }
+  .nav-links a.stage-projects.active{ color: var(--gold); border-color: var(--gold); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 96px 0 64px;
+  }
+  .hero h1{
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.08;
+    max-width: 15ch;
+  }
+  .hero .role{
+    font-family: var(--font-display);
+    font-size: 17px;
+    color: var(--text-muted);
+    margin-top: 18px;
+  }
+  .hero p.pitch{
+    font-family: var(--font-body);
+    font-size: 20px;
+    color: var(--text);
+    max-width: 58ch;
+    margin-top: 22px;
+  }
+
+  .pipeline{
+    margin-top: 52px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    max-width: 640px;
+  }
+  .pipeline .stage{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-decoration: none;
+    padding: 14px 4px;
+    border-top: 3px solid var(--border);
+    transition: border-color 0.25s ease;
+  }
+  .pipeline .stage .dot{
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--text-dim);
+    transition: background 0.25s ease;
+  }
+  .pipeline .stage .label{
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--text-dim);
+    transition: color 0.25s ease;
+  }
+  .pipeline .stage .sub{
+    font-size: 13px;
+    color: var(--text-dim);
+    font-family: var(--font-body);
+  }
+  .pipeline .stage.bronze{ border-top-color: var(--bronze-dim); }
+  .pipeline .stage.bronze .dot{ background: var(--bronze); }
+  .pipeline .stage.bronze .label{ color: var(--bronze); }
+  .pipeline .stage.silver{ border-top-color: var(--silver-dim); }
+  .pipeline .stage.silver .dot{ background: var(--silver); }
+  .pipeline .stage.silver .label{ color: var(--silver); }
+  .pipeline .stage.gold{ border-top-color: var(--gold-dim); }
+  .pipeline .stage.gold .dot{ background: var(--gold); }
+  .pipeline .stage.gold .label{ color: var(--gold); }
+
+  .hero-actions{
+    margin-top: 44px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn{
+    font-family: var(--font-display);
+    font-size: 15px;
+    padding: 13px 24px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+  .btn-primary{
+    background: var(--gold);
+    color: #1a1508;
+    font-weight: 600;
+  }
+  .btn-primary:hover{ transform: translateY(-1px); }
+  .btn-secondary{
+    border-color: var(--border);
+    color: var(--text);
+  }
+  .btn-secondary:hover{ border-color: var(--text-muted); }
+
+  /* ---------- Sections ---------- */
+  section{
+    padding: 88px 0;
+    border-top: 1px solid var(--border);
+  }
+  .section-head{
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+  .section-head .tier-dot{
+    width: 10px; height: 10px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .foundation .tier-dot{ background: var(--bronze); }
+  .experience .tier-dot{ background: var(--silver); }
+  .projects .tier-dot{ background: var(--gold); }
+
+  section h2{
+    font-size: 30px;
+  }
+  section > .wrap > .intro{
+    color: var(--text-muted);
+    max-width: 56ch;
+    margin-top: 14px;
+    margin-bottom: 48px;
+    font-size: 17px;
+  }
+
+  /* ---------- Foundation ---------- */
+  .skill-groups{
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+  }
+  .skill-col{
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .skill-group h3{
+    font-size: 15px;
+    color: var(--bronze);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .chips{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .chips li{
+    font-family: var(--font-display);
+    font-size: 13.5px;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 3px;
+  }
+
+  .foundation-sub{
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+  }
+  .cert-list, .edu-list{
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .cert-list li{
+    padding: 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 16px;
+  }
+  .cert-list li .yr{
+    font-family: var(--font-display);
+    font-size: 13px;
+    color: var(--bronze);
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+  .cert-list .cert-link{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 13px 0;
+    text-decoration: none;
+    color: inherit;
+  }
+  .cert-list .cert-link:hover span:first-child{
+    color: var(--bronze);
+    text-decoration: underline;
+    text-decoration-color: var(--bronze-dim);
+  }
+  .cert-list .cert-static{
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 13px 0;
+  }
+  .edu-list li{
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .edu-list .school{
+    font-family: var(--font-display);
+    font-size: 15px;
+    color: var(--text);
+  }
+  .edu-list .deg{
+    color: var(--text-muted);
+    font-size: 15.5px;
+    margin-top: 3px;
+  }
+  h4.subhead{
+    font-family: var(--font-display);
+    font-size: 15px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  /* ---------- Experience ---------- */
+  .timeline{
+    border-left: 2px solid var(--border);
+    margin-top: 40px;
+  }
+  .job{
+    position: relative;
+    padding: 0 0 40px 32px;
+  }
+  .job:last-child{ padding-bottom: 0; }
+  .job::before{
+    content: '';
+    position: absolute;
+    left: -7px; top: 4px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--silver);
+  }
+  .job .when{
+    font-family: var(--font-display);
+    font-size: 13px;
+    color: var(--silver);
+    letter-spacing: 0.01em;
+  }
+  .job h3{
+    font-size: 20px;
+    margin-top: 6px;
+  }
+  .job .place{
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-top: 2px;
+  }
+  .job p{
+    margin-top: 12px;
+    color: var(--text);
+    max-width: 62ch;
+    font-size: 16.5px;
+  }
+  .job p strong{
+    color: var(--silver);
+    font-weight: 600;
+  }
+
+  /* ---------- Projects ---------- */
+  .project-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .project{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 24px;
+  }
+  .project .ptitle{
+    font-size: 21px;
+    grid-column: 1;
+  }
+  .project .pyear{
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--gold);
+    grid-column: 2;
+    align-self: start;
+    white-space: nowrap;
+  }
+  .project p.pdesc{
+    grid-column: 1 / -1;
+    color: var(--text-muted);
+    font-size: 16.5px;
+    max-width: 68ch;
+    margin: 4px 0 0;
+  }
+  .project .ptags{
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+    list-style: none;
+    padding: 0;
+  }
+  .project .ptags li{
+    font-family: var(--font-display);
+    font-size: 12.5px;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+  .project .plink{
+    grid-column: 1 / -1;
+    margin-top: 16px;
+    font-family: var(--font-display);
+    font-size: 14.5px;
+    color: var(--gold);
+    text-decoration: none;
+    width: fit-content;
+    border-bottom: 1px solid var(--gold-dim);
+  }
+  .project .plink:hover{ border-color: var(--gold); }
+  .project .plinks{
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .project .plinks .plink{ margin-top: 0; }
+  .project .howto{
+    grid-column: 1 / -1;
+    margin-top: 18px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+  .project .howto summary{
+    font-family: var(--font-display);
+    font-size: 14.5px;
+    color: var(--silver);
+    cursor: pointer;
+    list-style: none;
+  }
+  .project .howto summary::-webkit-details-marker{ display: none; }
+  .project .howto summary::before{
+    content: '▸ ';
+    color: var(--silver);
+  }
+  .project .howto[open] summary::before{
+    content: '▾ ';
+  }
+  .project .howto ol{
+    margin: 14px 0 0;
+    padding-left: 22px;
+    color: var(--text-muted);
+    font-size: 15px;
+  }
+  .project .howto ol li{
+    margin-bottom: 10px;
+  }
+  .project .howto ol li:last-child{ margin-bottom: 0; }
+  .project .howto code{
+    font-family: var(--font-display);
+    font-size: 13px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+
+  /* ---------- Contact / Footer ---------- */
+  footer{
+    border-top: 1px solid var(--border);
+    padding: 88px 0 56px;
+  }
+  footer h2{
+    font-size: 30px;
+    max-width: 12ch;
+  }
+  footer p.lead{
+    color: var(--text-muted);
+    max-width: 50ch;
+    margin-top: 16px;
+    font-size: 17px;
+  }
+  .contact-row{
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .footer-meta{
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: var(--text-dim);
+    font-size: 14px;
+    font-family: var(--font-display);
+  }
+
+  /* ---------- Focus ---------- */
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 760px){
+    .wrap{ padding: 0 20px; }
+    .nav-inner{ padding: 16px 20px; }
+    .nav-links{ gap: 16px; font-size: 13px; }
+    .hero{ padding: 64px 0 48px; }
+    .skill-groups{ flex-direction: column; gap: 36px; }
+    .foundation-sub{ grid-template-columns: 1fr; gap: 36px; }
+    .project{ grid-template-columns: 1fr; }
+    .project .pyear{ grid-column: 1; }
+    section{ padding: 64px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-name">Alex Ilyukh</div>
+    <ul class="nav-links">
+      <li><a href="#foundation" class="stage-foundation">Foundation</a></li>
+      <li><a href="#experience" class="stage-experience">Employment History</a></li>
+      <li><a href="#projects" class="stage-projects">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero wrap" style="border-top:none;">
+    <h1>Turning raw data into decisions worth trusting.</h1>
+    <div class="role">Data Analyst — Northbrook, IL</div>
+    <p class="pitch">I turn messy data into clear, decision-ready analysis using Python, SQL, Power BI, and statistical modeling — with hands-on ETL and cloud experience in Databricks and AWS, grounded in a background in sales and CRM data.</p>
+
+    <nav class="pipeline" aria-label="Page sections, structured like a data pipeline">
+      <a href="#foundation" class="stage bronze">
+        <span class="dot"></span>
+        <span class="label">Foundation</span>
+        <span class="sub">Skills &amp; training</span>
+      </a>
+      <a href="#experience" class="stage silver">
+        <span class="dot"></span>
+        <span class="label">Experience</span>
+        <span class="sub">Applied at work</span>
+      </a>
+      <a href="#projects" class="stage gold">
+        <span class="dot"></span>
+        <span class="label">Projects</span>
+        <span class="sub">Shipped work</span>
+      </a>
+    </nav>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projects">See the Portfolio</a>
+      <a class="btn btn-secondary" href="resume.pdf" download>Download resume</a>
+    </div>
+  </section>
+
+  <section id="foundation" class="foundation">
+    <div class="wrap">
+      <div class="section-head"><span class="tier-dot"></span><h2>Foundation</h2></div>
+      <p class="intro">The base layer — the languages, tools, and coursework that everything downstream gets built on.</p>
+
+      <div class="skill-groups">
+        <div class="skill-col">
+          <div class="skill-group">
+            <h3>Languages &amp; analysis</h3>
+            <ul class="chips">
+              <li>Python</li><li>SQL</li><li>R</li><li>Statistical analysis</li><li>Machine learning</li><li>Object-Oriented Programming (OOP)</li><li>Statistical modeling</li><li>Applied machine learning</li><li>Supervised learning</li><li>Logistic regression</li><li>Decision tree learning</li><li>Probability &amp; statistics</li><li>Data cleansing</li><li>ggplot2</li><li>R Markdown</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Data engineering &amp; cloud</h3>
+            <ul class="chips">
+              <li>Databricks</li><li>Apache Spark</li><li>PySpark</li><li>Delta Lake</li><li>Lakehouse architecture</li><li>Unity Catalog</li><li>Databricks CLI</li><li>ETL pipelines (medallion architecture)</li><li>Data pipelines</li><li>Data modeling</li><li>Database design</li><li>AWS (S3, EC2)</li><li>AWS Glue</li><li>Amazon DynamoDB</li><li>Amazon CloudWatch</li><li>IAM</li><li>Serverless computing</li><li>Cloud security</li><li>BigQuery</li>
+            </ul>
+          </div>
+        </div>
+        <div class="skill-col">
+          <div class="skill-group">
+            <h3>Visualization &amp; reporting</h3>
+            <ul class="chips">
+              <li>Power BI</li><li>Tableau</li><li>Excel (Pivot Tables, VLOOKUP/XLOOKUP)</li><li>Google Sheets</li><li>KPI reporting</li><li>Dashboard design</li><li>Interactive data visualization</li><li>Business intelligence</li><li>Data-driven decision-making</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Machine learning &amp; emerging tech</h3>
+            <ul class="chips">
+              <li>Federated learning</li><li>PyTorch</li><li>TensorFlow</li><li>Flower</li><li>Homomorphic encryption</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Business tools</h3>
+            <ul class="chips">
+              <li>Salesforce CRM</li><li>Business analysis</li><li>Workflow management</li><li>Data ethics</li><li>Cross-functional collaboration</li><li>Stakeholder communication</li><li>Bilingual — English, Russian</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="foundation-sub">
+        <div>
+          <h4 class="subhead">Certifications</h4>
+          <ul class="cert-list">
+            <li><a class="cert-link" href="https://www.coursera.org/professional-certificates/microsoft-power-bi-data-analyst" target="_blank" rel="noopener"><span>Microsoft Power BI Data Analyst Professional Certificate — Coursera</span><span class="yr">In progress</span></a></li>
+            <li><a class="cert-link" href="https://www.udemy.com/certificate/UC-a5607a2a-8d68-4462-bb79-8b2852b53b4a/" target="_blank" rel="noopener"><span>Python, Databricks &amp; Apache Spark: Complete ETL Engineering — Udemy</span><span class="yr">2026</span></a></li>
+            <li><a class="cert-link" href="https://www.udemy.com/certificate/UC-094d920f-bbe7-41b5-b19d-bb0733d8fc1d/" target="_blank" rel="noopener"><span>Learn Data Engineering with Databricks on AWS Cloud — Udemy</span><span class="yr">2026</span></a></li>
+            <li><a class="cert-link" href="https://credentials.databricks.com/ea3c04fc-e329-4cac-a60d-860c4e52b919#acc.p6B1CG8J" target="_blank" rel="noopener"><span>Academy Accreditation — AWS Databricks Platform Architect — Databricks</span><span class="yr">2026</span></a></li>
+            <li><a class="cert-link" href="https://www.udemy.com/certificate/UC-c02718be-0c89-447a-94c3-9b6403730ad4/" target="_blank" rel="noopener"><span>Federated Learning: Theory and Practical — Udemy</span><span class="yr">2026</span></a></li>
+            <li><a class="cert-link" href="https://www.coursera.org/account/accomplishments/verify/RX5NSARQLW7A" target="_blank" rel="noopener"><span>AWS Cloud Technical Essentials — Coursera</span><span class="yr">2025</span></a></li>
+            <li><a class="cert-link" href="https://www.coursera.org/account/accomplishments/specialization/5KP00E0OFBZJ" target="_blank" rel="noopener"><span>Google Business Intelligence Professional Certificate — Coursera</span><span class="yr">2025</span></a></li>
+            <li><a class="cert-link" href="https://www.coursera.org/account/accomplishments/specialization/IUHFG66H7LNZ" target="_blank" rel="noopener"><span>Google Advanced Data Analytics Professional Certificate — Coursera</span><span class="yr">2025</span></a></li>
+            <li><a class="cert-link" href="https://www.coursera.org/account/accomplishments/specialization/EWRKJ542V1SB" target="_blank" rel="noopener"><span>Google Data Analytics Professional Certificate — Coursera</span><span class="yr">2025</span></a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="subhead">Education</h4>
+          <ul class="edu-list">
+            <li>
+              <div class="school">Lake Forest College</div>
+              <div class="deg">B.A. Communication — Minor: Legal Studies &amp; Philosophy, 2019</div>
+            </li>
+            <li>
+              <div class="school">Oakton Community College</div>
+              <div class="deg">Associate in Liberal Arts, 2016</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="experience">
+    <div class="wrap">
+      <div class="section-head"><span class="tier-dot"></span><h2>Employment History</h2></div>
+
+      <div class="timeline">
+        <div class="job">
+          <div class="when">Nov 2024 – Present</div>
+          <h3>Analytics and Development Intern</h3>
+          <div class="place">GCA Research &amp; Consulting Services, Inc. — Remote</div>
+          <p>Supporting early-stage proprietary product development through research, analysis, and structured problem-solving in a confidential environment, while building hands-on capability in analytics, ETL pipelines, and cloud architecture.</p>
+        </div>
+        <div class="job">
+          <div class="when">Aug 2023 – Mar 2024</div>
+          <h3>Sales Associate</h3>
+          <div class="place">Sleep Number — Deerfield, IL</div>
+          <p>Maintained Indigo CRM sales and customer-interaction data and used Power BI dashboards to monitor activity, pipeline performance, and daily sales strategy.</p>
+        </div>
+        <div class="job">
+          <div class="when">Apr 2021 – Feb 2023</div>
+          <h3>Inside Sales Representative</h3>
+          <div class="place">Quill (Staples Inc.) — Lincolnshire, IL</div>
+          <p>Built operational dashboards to track productivity KPIs and forecast performance trends using Salesforce data. Conducted variance analysis against sales targets, contributing to a <strong>33% improvement in efficiency</strong>.</p>
+        </div>
+        <div class="job">
+          <div class="when">Jan 2019 – May 2019</div>
+          <h3>Marketing Intern</h3>
+          <div class="place">Kaplan Law Offices — Northbrook, IL</div>
+          <p>Analyzed SEO keyword and website performance with Google Analytics to improve search rankings, and tracked weekly marketing metrics for stakeholder reporting.</p>
+        </div>
+        <div class="job">
+          <div class="when">May 2018 – Aug 2018</div>
+          <h3>Legal Intern</h3>
+          <div class="place">Bikbova Law Office — Northbrook, IL</div>
+          <p>Built structured country-condition index reports from geopolitical and legal research, and organized case files extracted from legal documents and client interviews.</p>
+        </div>
+        <div class="job">
+          <div class="when">Jun 2013 – Sep 2020</div>
+          <h3>Event Operations &amp; Design Specialist</h3>
+          <div class="place">Neky Design — Northbrook, IL</div>
+          <p>Coordinated logistics and cross-functional teams across multiple concurrent events under tight deadlines.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <div class="wrap">
+      <div class="section-head"><span class="tier-dot"></span><h2>Portfolio</h2></div>
+      <p class="intro">The refined output — work built and shipped end to end, from raw data to a finding someone could act on.</p>
+
+      <div class="project-grid">
+
+        <div class="project">
+          <h3 class="ptitle">Rent Responsibly</h3>
+          <div class="pyear">2026</div>
+          <p class="pdesc">A location-aware rental affordability tool: combines commute isochrones, live rental listings, and full household financial modeling (tax, debt, expenses, fuel) to evaluate whether a move is sustainable under single-income and co-signing scenarios.</p>
+          <ul class="ptags">
+            <li>Python</li><li>Pandas / GeoPandas</li><li>Mapbox API</li><li>Geospatial analysis</li><li>Financial modeling</li>
+          </ul>
+          <a class="plink" href="https://github.com/aleksey-ilyukh/rent-responsibly" target="_blank" rel="noopener" aria-label="View Rent Responsibly project on GitHub">View on GitHub</a>
+        </div>
+
+        <div class="project">
+          <h3 class="ptitle">Relocation Feasibility Analysis</h3>
+          <div class="pyear">2026</div>
+          <p class="pdesc">Models income, housing costs, debt, and living expenses against real government data — HUD housing figures and Tax Foundation tax data — to answer a concrete question: is a specific relocation actually affordable, not just possible.</p>
+          <ul class="ptags">
+            <li>Python</li><li>Polars</li><li>HUD data</li><li>Tax Foundation data</li>
+          </ul>
+          <a class="plink" href="https://github.com/aleksey-ilyukh/relocation-feasibility-analysis" target="_blank" rel="noopener" aria-label="View Relocation Feasibility Analysis project on GitHub">View on GitHub</a>
+        </div>
+
+        <div class="project">
+          <h3 class="ptitle">Monte Carlo Job Offer Comparison</h3>
+          <div class="pyear">2026</div>
+          <p class="pdesc">Runs a 50,000-trial Monte Carlo simulation to compare compensation structures across job offers, turning uncertain, volume-based commission math into a distribution of likely outcomes rather than a single guess.</p>
+          <ul class="ptags">
+            <li>Python</li><li>NumPy</li><li>Monte Carlo simulation</li>
+          </ul>
+          <a class="plink" href="https://github.com/aleksey-ilyukh/job-offer-monte-carlo" target="_blank" rel="noopener" aria-label="View Monte Carlo Job Offer Comparison project on GitHub">View on GitHub</a>
+        </div>
+
+        <div class="project">
+          <h3 class="ptitle">Clipboard Health Case Study</h3>
+          <div class="pyear">2025</div>
+          <p class="pdesc">Analyzed CMS Payroll-Based Journal staffing data and provider records across 14,000+ U.S. nursing homes to identify staffing cost inefficiencies, model resource demand, and deliver strategic recommendations to sales leadership.</p>
+          <ul class="ptags">
+            <li>Python</li><li>Machine learning</li><li>CMS PBJ data</li>
+          </ul>
+          <a class="plink" href="https://docs.google.com/presentation/d/1_erqhL8W39I17sagy0HpaG7RyLqTrABdIZAjSEoXxqQ/edit?usp=sharing" target="_blank" rel="noopener" aria-label="View Clipboard Health Case Study presentation">View Presentation</a>
+        </div>
+
+        <div class="project">
+          <h3 class="ptitle">Customer Call-Time Optimization Dashboard</h3>
+          <div class="pyear">2022</div>
+          <p class="pdesc">Built a Google Sheets-based planner at Quill for tracking real-time call-duration data, designed to double as a live dashboard for the team — contributing to a 33% gain in efficiency.</p>
+          <ul class="ptags">
+            <li>Google Sheets</li><li>Dashboard design</li>
+          </ul>
+          <div class="plinks">
+            <a class="plink" href="https://docs.google.com/spreadsheets/d/15vu2e0Kyiaw3SyDGL3ZoA0kGRAIgQltW06h3MsfyP-M/edit?usp=sharing" target="_blank" rel="noopener" aria-label="View Customer Call-Time Optimization Dashboard">View Dashboard</a>
+            <a class="plink" href="https://docs.google.com/spreadsheets/d/15vu2e0Kyiaw3SyDGL3ZoA0kGRAIgQltW06h3MsfyP-M/copy" target="_blank" rel="noopener" aria-label="Get your own copy of the Customer Call-Time Optimization Dashboard">Get Your Own Copy</a>
+          </div>
+          <details class="howto">
+            <summary>How to use this dashboard</summary>
+            <ol>
+              <li>Make your own copy of the sheet, then duplicate the "Call Time Planner" tab. Do all of your daily edits on the <em>Copy of Call Time Planner</em> tab — this keeps the original tab clean and makes resetting for the next day easy.</li>
+              <li>If your shift starts at a different time, edit cell <code>G2</code> under the TOD column.</li>
+              <li>Set your goal in cell <code>O8</code> — clicking it reveals a dropdown. Selecting 3:45:00 sets an average call-time target of 0:08:02 per 15-minute segment; selecting 4:30:00 raises that target to 0:09:39.</li>
+              <li>If you're participating in a Flex Time program (working a bit extra Mon–Thu to leave early on Friday), add Flex Time starting with the first item in the list, adding more as your policy permits. Each addition lowers your required goal per 15-minute segment.</li>
+              <li>If you're leaving early, start unchecking the <code>L</code> column from the bottom. Also make sure no Flex Time is checked.</li>
+              <li>Block out breaks, lunch, and meetings — those segments highlight in yellow to mark their start and end.</li>
+              <li>Throughout the day, once a 15-minute segment is complete, edit that row's <em>Adjusted</em> cell with your actual call time. Delete the existing contents and type your time with no equals sign, in <code>00:00:00</code> format (e.g. <code>00:05:00</code>). The next row automatically recalculates the call-time goal needed to stay on track.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="project">
+          <h3 class="ptitle">Google Data Analytics Capstone</h3>
+          <div class="pyear">2025</div>
+          <p class="pdesc">Integrated Divvy bike-share ridership data with hourly weather data to uncover behavioral trends and develop data-driven recommendations for growing annual membership enrollment.</p>
+          <ul class="ptags">
+            <li>R</li><li>RStudio</li>
+          </ul>
+          <a class="plink" href="https://docs.google.com/presentation/d/1ULTkOIcbLZjq_KgonexjT2425CEH4EBmAeR5qag-ABg/edit?usp=sharing" target="_blank" rel="noopener" aria-label="View Google Data Analytics Capstone presentation">View Presentation</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="wrap">
+      <h2>Let's talk data.</h2>
+      <p class="lead">Open to Data Analyst, BI Analyst, Reporting Analyst, and Business Analyst roles. Happy to walk through any project above in more depth.</p>
+      <div class="contact-row">
+        <a class="btn btn-primary" href="mailto:a.ilyukh@icloud.com">Email me</a>
+        <a class="btn btn-secondary" href="https://www.linkedin.com/in/alex-ilyukh" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-secondary" href="https://www.github.com/aleksey-ilyukh" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="footer-meta">
+        <span>Northbrook, IL</span>
+        <span>a.ilyukh@icloud.com</span>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  // Highlight the active pipeline stage in the nav as the matching section scrolls into view.
+  const stageLinks = {
+    foundation: document.querySelector('.stage-foundation'),
+    experience: document.querySelector('.stage-experience'),
+    projects: document.querySelector('.stage-projects')
+  };
+  const sections = ['foundation', 'experience', 'projects']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+
+  if ('IntersectionObserver' in window && sections.length){
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const link = stageLinks[entry.target.id];
+        if (!link) return;
+        if (entry.isIntersecting){
+          Object.values(stageLinks).forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(s => observer.observe(s));
+  }
+</script>
+
+</body>
+</html>
